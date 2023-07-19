@@ -5,3 +5,5 @@ const admin = (req: Request, res: Response, next: NextFunction) => {
     return res.status(403).send("you are not an admin");
   next();
 };
+
+export default admin;
