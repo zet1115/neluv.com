@@ -3,13 +3,13 @@
 
 ## install
 
-npm install
-yarn install
+#### npm install
+#### yarn install
 
 ## run & build
 
-npm run dev
-yarn dev
+#### npm run dev
+#### yarn dev
 
-npm run build
-yarn build
+#### npm run build
+#### yarn build
