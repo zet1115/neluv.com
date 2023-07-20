@@ -5,17 +5,17 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const auth = (req: Request, res: Response, next: NextFunction) => {
-  // Get token from header
-  const token = req.headers.authorization;
-
-  // Check if not token
+  let token = req.headers.authorization;
   if (!token) {
     return res.status(401).json({ msg: "No token, authorization denied" });
   }
-
-  // Verify token
+  if (!token.startsWith('Bearer ')){
+    return res.status(401).json({ msg: "Invalid token, authorization denied" });
+  }
+  token = token.replace('Bearer ', '');
   try {
-    jwt.verify(token, process.env.JWT_PRIVATE_KEY, (error: any, decoded: { user: any }) => {
+    const jwt_secret = process.env.JWT_PRIVATE_KEY || '1234567890';
+    jwt.verify(token, jwt_secret, (error: any, decoded: { user: any }) => {
       if (error) {
         return res.status(401).json({ msg: "Token is not valid" });
       } else {

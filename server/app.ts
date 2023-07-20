@@ -24,22 +24,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 //Define Routes
-app.use("/api/auth", authRoutes());
+app.use("/api/users", authRoutes());
 app.use("/api/upload", uploadRoutes());
 
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("public"));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "public", "build", "index.html"));
-  });
 }
-
-app.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "build", "index.html"));
-});
 
 const PORT = process.env.PORT || 8000;
 
